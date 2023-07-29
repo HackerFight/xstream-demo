@@ -25,6 +25,11 @@ public class LocalDateConverter implements SingleValueConverter {
                 return dateFormatter.format((TemporalAccessor) obj);
             }
         } catch (Exception e) {
+            /**
+             * 这里如果解析失败最好不要抛出异常，返回null,
+             * 然后把 {@link com.thoughtworks.xstream.annotations.XStreamConverter}注解标注
+             * 在需要解析的属性上，完成局部的解析映射。
+             */
             //log.error("LocalDate 格式转换错误，args: {}", obj);
             throw new RuntimeException(e);
         }
